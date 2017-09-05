@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.gcfhfbj.casadocodigo.casadocodigo.delegate.LivrosDelegate;
 import com.gcfhfbj.casadocodigo.casadocodigo.model.Livro;
 import com.gcfhfbj.casadocodigo.casadocodigo.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -45,6 +46,11 @@ public class LivroAdapter extends RecyclerView.Adapter {
         Livro livro = livros.get(position);
         viewHolder.nome.setText(livro.getNome());
         //viewHolder.descricao.setText(livro.getDescricao());
+
+        Picasso.with(viewHolder.foto.getContext())
+                .load(livro.getUrlFoto())
+                .placeholder(R.drawable.livro)
+                .into(viewHolder.foto);
     }
 
     @Override

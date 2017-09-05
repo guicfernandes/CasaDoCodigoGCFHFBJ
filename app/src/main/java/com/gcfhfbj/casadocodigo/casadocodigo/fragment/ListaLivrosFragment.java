@@ -28,8 +28,10 @@ import butterknife.ButterKnife;
 
 public class ListaLivrosFragment extends Fragment {
 
+    private List<Livro> livros = new ArrayList<>();
+
     @BindView(R.id.lista_livros)
-    RecyclerView recycler;
+    RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -37,16 +39,18 @@ public class ListaLivrosFragment extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        /*
         List<Livro> livros = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
             Autor autor = new Autor();
             autor.setNome("Autor " + i);
-            Livro livro = new Livro("Livro " + i, "Descrição " + i, Arrays.asList(autor), i + 100, "10/02/1998", "1548700", 10.50, 15.15);
-            //Livro livro = new Livro("Livro " + i, "Descricao " + i, Arrays.asList(autor));
+            //Livro livro = new Livro("Livro " + i, "Descrição " + i, Arrays.asList(autor), i + 100, "10/02/1998", "1548700", 10.50, 15.15);
+            Livro livro = new Livro("Livro " + i, "Descricao " + i, Arrays.asList(autor));
             livros.add(livro);
         }
+        */
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.lista_livros);
+        //RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.lista_livros);
         recyclerView.setAdapter(new LivroAdapter(livros));
 
         //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -54,5 +58,12 @@ public class ListaLivrosFragment extends Fragment {
 
         return view;
         //return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+
+    public void populaListaCom(List<Livro> livros) {
+        this.livros.clear();
+        this.livros.addAll(livros);
+        recyclerView.getAdapter().notifyDataSetChanged();
     }
 }

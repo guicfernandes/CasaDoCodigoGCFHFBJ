@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.gcfhfbj.casadocodigo.casadocodigo.R;
 import com.gcfhfbj.casadocodigo.casadocodigo.model.Autor;
 import com.gcfhfbj.casadocodigo.casadocodigo.model.Livro;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -96,5 +97,7 @@ public class DetalheLivroFragment extends Fragment {
 
         String textoComprarAmbos = String.format("Comprar Ambos - R$ %.2f", livro.getValorDoisJuntos());
         botaoComprarAmbos.setText(textoComprarAmbos);
+
+        Picasso.with(getContext()).load(livro.getUrlFoto()).placeholder(R.drawable.livro).into(foto);
     }
 }
