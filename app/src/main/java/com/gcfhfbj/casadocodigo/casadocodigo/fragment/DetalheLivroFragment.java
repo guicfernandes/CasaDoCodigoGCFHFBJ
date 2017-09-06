@@ -1,24 +1,34 @@
 package com.gcfhfbj.casadocodigo.casadocodigo.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringDef;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gcfhfbj.casadocodigo.casadocodigo.CasaDoCodigoApplication;
 import com.gcfhfbj.casadocodigo.casadocodigo.R;
+import com.gcfhfbj.casadocodigo.casadocodigo.activity.CarrinhoActivity;
 import com.gcfhfbj.casadocodigo.casadocodigo.model.Autor;
+import com.gcfhfbj.casadocodigo.casadocodigo.model.Carrinho;
+import com.gcfhfbj.casadocodigo.casadocodigo.model.Item;
 import com.gcfhfbj.casadocodigo.casadocodigo.model.Livro;
+import com.gcfhfbj.casadocodigo.casadocodigo.model.TipoDeCompra;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by android7281 on 04/09/17.
@@ -26,6 +36,7 @@ import butterknife.ButterKnife;
 
 public class DetalheLivroFragment extends Fragment {
 
+    private Carrinho carrinho;
     @BindView(R.id.detalhes_livro_foto)
     ImageView foto;
 
@@ -68,6 +79,7 @@ public class DetalheLivroFragment extends Fragment {
         Bundle arguments =  getArguments();
         livro = (Livro) arguments.getSerializable("livro");
         populaCamposCom(livro);
+        carrinho = ((CasaDoCodigoApplication) getActivity().getApplication()).getCarrinho();
 
         return view;
     }
@@ -99,5 +111,35 @@ public class DetalheLivroFragment extends Fragment {
         botaoComprarAmbos.setText(textoComprarAmbos);
 
         Picasso.with(getContext()).load(livro.getUrlFoto()).placeholder(R.drawable.livro).into(foto);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.vai_para_carrinho:
+                Intent vaiParaCarrinho = new Intent(getActivity(), CarrinhoActivity.class);
+                startActivity(vaiParaCarrinho);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @OnClick(R.id.detalhes_livro_comprar_fisico)
+    public void onClickComprarFisico() {
+        carrinho.adiciona(new Item(livro, TipoDeCompra.FISICO));
+        //startActivity(new Intent(getActivity(), CarrinhoActivity.class));
+    }
+
+    @OnClick(R.id.detalhes_livro_comprar_ebook)
+    public void onClickComprarVirtual() {
+        carrinho.adiciona(new Item(livro, TipoDeCompra.VIRTUAL));
+        //startActivity(new Intent(getActivity(), CarrinhoActivity.class));
+    }
+
+    @OnClick(R.id.detalhes_livro_comprar_ambos)
+    public void onClickComprarAmbos() {
+        carrinho.adiciona(new Item(livro, TipoDeCompra.JUNTOS));
+        startActivity(new Intent(getActivity(), CarrinhoActivity.class));
     }
 }
