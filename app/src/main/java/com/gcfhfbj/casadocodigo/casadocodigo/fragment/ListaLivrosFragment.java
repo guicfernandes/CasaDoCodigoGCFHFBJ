@@ -10,10 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gcfhfbj.casadocodigo.casadocodigo.EndlessListListener;
 import com.gcfhfbj.casadocodigo.casadocodigo.model.Autor;
 import com.gcfhfbj.casadocodigo.casadocodigo.model.Livro;
 import com.gcfhfbj.casadocodigo.casadocodigo.R;
 import com.gcfhfbj.casadocodigo.casadocodigo.adapter.LivroAdapter;
+import com.gcfhfbj.casadocodigo.casadocodigo.server.WebClient;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -61,9 +63,17 @@ public class ListaLivrosFragment extends Fragment {
     }
 
 
-    public void populaListaCom(List<Livro> livros) {
-        this.livros.clear();
+    public void populaListaCom(final List<Livro> livros) {
+        //this.livros.clear();
         this.livros.addAll(livros);
         recyclerView.getAdapter().notifyDataSetChanged();
+
+        //recyclerView.addOnScrollListener(new EndlessListListener());
+        recyclerView.addOnScrollListener(new EndlessListListener() {
+            @Override
+            public void carregaMaisItens() {
+                new WebClient().getLivros(livros.size(), 10);
+            }
+        });
     }
 }
