@@ -2,6 +2,7 @@ package com.gcfhfbj.casadocodigo.casadocodigo;
 
 import com.gcfhfbj.casadocodigo.casadocodigo.activity.CarrinhoActivity;
 import com.gcfhfbj.casadocodigo.casadocodigo.fragment.DetalheLivroFragment;
+import com.gcfhfbj.casadocodigo.casadocodigo.fragment.ListaLivrosFragment;
 
 import javax.inject.Singleton;
 
@@ -18,4 +19,6 @@ public interface CasaDoCodigoComponent {
     void inject(DetalheLivroFragment fragment);
 
     void inject(CarrinhoActivity activity);
+
+    void inject(ListaLivrosFragment fragment);
 }

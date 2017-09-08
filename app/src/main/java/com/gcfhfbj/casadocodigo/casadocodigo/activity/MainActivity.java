@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.gcfhfbj.casadocodigo.casadocodigo.fragment.DetalheLivroFragment;
 import com.gcfhfbj.casadocodigo.casadocodigo.fragment.ListaLivrosFragment;
 import com.gcfhfbj.casadocodigo.casadocodigo.model.Livro;
 import com.gcfhfbj.casadocodigo.casadocodigo.server.WebClient;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements LivrosDelegate, F
 
     @BindView(R.id.frame_principal)
     View framePrincipal;
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements LivrosDelegate, F
         //Habilitar botão voltar no topo
         getSupportFragmentManager().addOnBackStackChangedListener(this);
         mostrarVoltar();
+
+        mAuth = FirebaseAuth.getInstance();
     }
 
     @Override
@@ -122,6 +128,12 @@ public class MainActivity extends AppCompatActivity implements LivrosDelegate, F
             case R.id.vai_para_carrinho:
                 Intent vaiParaCarrinho = new Intent(this, CarrinhoActivity.class);
                 startActivity(vaiParaCarrinho);
+                return true;
+            case R.id.signout:
+                mAuth.signOut();
+                Intent signout = new Intent(this, LoginActivity.class);
+                startActivity(signout);
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
