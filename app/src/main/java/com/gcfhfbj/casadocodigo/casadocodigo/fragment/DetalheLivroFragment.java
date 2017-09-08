@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gcfhfbj.casadocodigo.casadocodigo.CasaDoCodigoApplication;
 import com.gcfhfbj.casadocodigo.casadocodigo.R;
@@ -26,6 +27,8 @@ import com.gcfhfbj.casadocodigo.casadocodigo.model.Livro;
 import com.gcfhfbj.casadocodigo.casadocodigo.model.TipoDeCompra;
 import com.squareup.picasso.Picasso;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -36,7 +39,10 @@ import butterknife.OnClick;
 
 public class DetalheLivroFragment extends Fragment {
 
-    private Carrinho carrinho;
+    //private Carrinho carrinho;
+    @Inject
+    Carrinho carrinho;
+
     @BindView(R.id.detalhes_livro_foto)
     ImageView foto;
 
@@ -71,7 +77,8 @@ public class DetalheLivroFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_detalhes_livro, container, false);
         ButterKnife.bind(this, view);
@@ -79,7 +86,10 @@ public class DetalheLivroFragment extends Fragment {
         Bundle arguments =  getArguments();
         livro = (Livro) arguments.getSerializable("livro");
         populaCamposCom(livro);
-        carrinho = ((CasaDoCodigoApplication) getActivity().getApplication()).getCarrinho();
+        //carrinho = ((CasaDoCodigoApplication) getActivity().getApplication()).getCarrinho();
+
+        CasaDoCodigoApplication app = (CasaDoCodigoApplication) getActivity().getApplication();
+        app.getComponent().inject(this);
 
         return view;
     }
@@ -127,18 +137,21 @@ public class DetalheLivroFragment extends Fragment {
 
     @OnClick(R.id.detalhes_livro_comprar_fisico)
     public void onClickComprarFisico() {
+        Toast.makeText(getActivity(), "Livro adicionado ao carrinho!", Toast.LENGTH_SHORT).show();
         carrinho.adiciona(new Item(livro, TipoDeCompra.FISICO));
         //startActivity(new Intent(getActivity(), CarrinhoActivity.class));
     }
 
     @OnClick(R.id.detalhes_livro_comprar_ebook)
     public void onClickComprarVirtual() {
+        Toast.makeText(getActivity(), "Livro adicionado ao carrinho!", Toast.LENGTH_SHORT).show();
         carrinho.adiciona(new Item(livro, TipoDeCompra.VIRTUAL));
         //startActivity(new Intent(getActivity(), CarrinhoActivity.class));
     }
 
     @OnClick(R.id.detalhes_livro_comprar_ambos)
     public void onClickComprarAmbos() {
+        Toast.makeText(getActivity(), "Livro adicionado ao carrinho!", Toast.LENGTH_SHORT).show();
         carrinho.adiciona(new Item(livro, TipoDeCompra.JUNTOS));
         startActivity(new Intent(getActivity(), CarrinhoActivity.class));
     }

@@ -14,6 +14,8 @@ import com.gcfhfbj.casadocodigo.casadocodigo.adapter.ItensAdapter;
 import com.gcfhfbj.casadocodigo.casadocodigo.model.Carrinho;
 import com.gcfhfbj.casadocodigo.casadocodigo.model.Item;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -29,15 +31,21 @@ public class CarrinhoActivity extends AppCompatActivity implements FragmentManag
     @BindView(R.id.valor_carrinho)
     TextView valorTotal;
 
-    private Carrinho carrinho;
+    //private Carrinho carrinho;
+    @Inject
+    Carrinho carrinho;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carrinho);
-        ButterKnife.bind(this);
+        //ButterKnife.bind(this);
 
-        carrinho = ((CasaDoCodigoApplication) this.getApplication()).getCarrinho();
+        //List<Item> itens = carrinho.getItens();
+        CasaDoCodigoApplication app = (CasaDoCodigoApplication) getApplication();
+        app.getComponent().inject(this);
+
+        ButterKnife.bind(this);
 
         //Habilitar botão voltar no topo
         getSupportFragmentManager().addOnBackStackChangedListener(this);
@@ -50,7 +58,7 @@ public class CarrinhoActivity extends AppCompatActivity implements FragmentManag
     }
 
     public void carregaLista() {
-        listaItens.setAdapter(new ItensAdapter(carrinho.getItens(), this));
+        listaItens.setAdapter(new ItensAdapter(carrinho.getItens()));
         listaItens.setLayoutManager(new LinearLayoutManager(this));
 
         double total = 0;

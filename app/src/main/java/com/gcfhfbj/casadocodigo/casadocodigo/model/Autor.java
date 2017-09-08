@@ -1,10 +1,12 @@
 package com.gcfhfbj.casadocodigo.casadocodigo.model;
 
+import java.io.Serializable;
+
 /**
  * Created by android7281 on 04/09/17.
  */
 
-public class Autor {
+public class Autor implements Serializable{
 
     private long id;
     private String nome;

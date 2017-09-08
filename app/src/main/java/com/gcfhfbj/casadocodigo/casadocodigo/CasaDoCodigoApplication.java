@@ -10,9 +10,16 @@ import com.gcfhfbj.casadocodigo.casadocodigo.model.Carrinho;
 
 public class CasaDoCodigoApplication extends Application {
 
-    private Carrinho carrinho = new Carrinho();
+    private CasaDoCodigoComponent component;
 
-    public Carrinho getCarrinho() {
-        return carrinho;
+     @Override
+     public void onCreate() {
+        super.onCreate();
+
+        component = DaggerCasaDoCodigoComponent.builder().build();
+     }
+
+    public CasaDoCodigoComponent getComponent() {
+        return component;
     }
 }

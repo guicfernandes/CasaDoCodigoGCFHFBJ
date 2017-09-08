@@ -28,9 +28,9 @@ public class ItensAdapter extends RecyclerView.Adapter {
     private List<Item> itens;
     private CarrinhoActivity carrinhoActivity;
 
-    public ItensAdapter(List<Item> itens, CarrinhoActivity carrinhoActivity) {
+    public ItensAdapter(List<Item> itens) {
         this.itens = itens;
-        this.carrinhoActivity = carrinhoActivity;
+        //this.carrinhoActivity = carrinhoActivity;
     }
 
     @Override
@@ -53,7 +53,8 @@ public class ItensAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(carrinhoActivity).inflate(R.layout.activity_carrinho, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_carrinho, parent, false);
+        //View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_carrinho, parent, false);
         return new ViewHolder(view);
     }
 
