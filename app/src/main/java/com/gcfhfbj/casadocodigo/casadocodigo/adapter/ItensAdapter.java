@@ -17,7 +17,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by android7281 on 06/09/17.
@@ -27,6 +26,13 @@ public class ItensAdapter extends RecyclerView.Adapter {
 
     private List<Item> itens;
     private CarrinhoActivity carrinhoActivity;
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        //View view = LayoutInflater.from(carrinhoActivity).inflate(R.layout.activity_carrinho, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_carrinho, parent, false);
+        return new ViewHolder(view);
+    }
 
     public ItensAdapter(List<Item> itens, CarrinhoActivity carrinhoActivity) {
         this.itens = itens;
@@ -51,12 +57,6 @@ public class ItensAdapter extends RecyclerView.Adapter {
         return itens.size();
     }
 
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(carrinhoActivity).inflate(R.layout.activity_carrinho, parent, false);
-        return new ViewHolder(view);
-    }
-
     class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.imagem_item_comprado)
@@ -70,6 +70,7 @@ public class ItensAdapter extends RecyclerView.Adapter {
 
         public ViewHolder(View itemView) {
             super(itemView);
+
             ButterKnife.bind(this, itemView);
         }
 
