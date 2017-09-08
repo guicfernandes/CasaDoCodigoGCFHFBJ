@@ -1,6 +1,7 @@
 package com.gcfhfbj.casadocodigo.casadocodigo;
 
 import com.gcfhfbj.casadocodigo.casadocodigo.activity.CarrinhoActivity;
+import com.gcfhfbj.casadocodigo.casadocodigo.activity.MainActivity;
 import com.gcfhfbj.casadocodigo.casadocodigo.fragment.DetalheLivroFragment;
 import com.gcfhfbj.casadocodigo.casadocodigo.fragment.ListaLivrosFragment;
 
@@ -21,4 +22,6 @@ public interface CasaDoCodigoComponent {
     void inject(CarrinhoActivity activity);
 
     void inject(ListaLivrosFragment fragment);
+
+    void inject(MainActivity activity);
 }

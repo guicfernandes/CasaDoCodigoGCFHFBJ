@@ -84,7 +84,6 @@ public class ListaLivrosFragment extends Fragment {
                     config.activateFetched();
                     boolean listaSimples = config.getBoolean("lista_simples");
                     //setBarsColor(config.getString("cor_toolbar"), config.getString("cor_statusbar"));
-                    colorUpdater = new ColorUpdater(config);
                     //new LivroAdapter(livros, listaSimples);
                     configuraLista(listaSimples);
                 }
@@ -96,30 +95,6 @@ public class ListaLivrosFragment extends Fragment {
         return view;
         //return super.onCreateView(inflater, container, savedInstanceState);
     }
-
-    //===========================
-
-    /*private AppCompatActivity activity;
-    public void setActivity(AppCompatActivity activity) {
-        this.activity = activity;
-    }
-
-    public void setBarsColor(String toolbarColorStr, String statusbarColorStr) {
-        int toolbarColor = Color.parseColor(toolbarColorStr);
-        int statusbarColor = Color.parseColor(statusbarColorStr);
-
-        //configura cor toolbar
-        activity.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(toolbarColor));
-
-        //configura cor da status bar
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getActivity().getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(statusbarColor);
-        }
-    }*/
-
-    //=========================
 
     private void configuraLista(boolean listaSimples) {
         //RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.lista_livros);

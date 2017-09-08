@@ -22,13 +22,15 @@ public class ColorUpdater {
     private AppCompatActivity activity;
     FirebaseRemoteConfig remoteConfig;
 
-    public ColorUpdater(FirebaseRemoteConfig remoteConfig) {
+    public ColorUpdater(FirebaseRemoteConfig remoteConfig, AppCompatActivity activity) {
         this.remoteConfig = remoteConfig;
+        this.activity = activity;
+        refreshConfig();
     }
 
-    public void setActivity(AppCompatActivity activity) {
+    /*public void setActivity(AppCompatActivity activity) {
         this.activity = activity;
-    }
+    }*/
 
     public void refreshConfig() {
         remoteConfig.fetch(30).addOnCompleteListener(new OnCompleteListener<Void>() {

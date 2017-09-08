@@ -11,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.gcfhfbj.casadocodigo.casadocodigo.CasaDoCodigoApplication;
+import com.gcfhfbj.casadocodigo.casadocodigo.ColorUpdater;
 import com.gcfhfbj.casadocodigo.casadocodigo.event.LivroEvent;
 import com.gcfhfbj.casadocodigo.casadocodigo.R;
 import com.gcfhfbj.casadocodigo.casadocodigo.delegate.LivrosDelegate;
@@ -19,6 +21,7 @@ import com.gcfhfbj.casadocodigo.casadocodigo.fragment.ListaLivrosFragment;
 import com.gcfhfbj.casadocodigo.casadocodigo.model.Livro;
 import com.gcfhfbj.casadocodigo.casadocodigo.server.WebClient;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements LivrosDelegate, F
     View framePrincipal;
 
     private FirebaseAuth mAuth;
+    private FirebaseRemoteConfig remoteConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,11 @@ public class MainActivity extends AppCompatActivity implements LivrosDelegate, F
         mostrarVoltar();
 
         mAuth = FirebaseAuth.getInstance();
+
+        CasaDoCodigoApplication app = (CasaDoCodigoApplication) this.getApplication();
+        app.getComponent().inject(this);
+
+        new ColorUpdater(remoteConfig, this);
     }
 
     @Override
