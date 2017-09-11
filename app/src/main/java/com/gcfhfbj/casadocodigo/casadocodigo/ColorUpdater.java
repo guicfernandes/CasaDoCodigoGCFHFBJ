@@ -38,7 +38,10 @@ public class ColorUpdater {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     remoteConfig.activateFetched();
-                    setBarsColor(remoteConfig.getString("cor_toolbar"), remoteConfig.getString("cor_statusbar"));
+                    String toolbarColor = remoteConfig.getString("cor_toolbar");
+                    String statusbarColor = remoteConfig.getString("cor_statusbar");
+                    //setBarsColor(remoteConfig.getString("cor_toolbar"), remoteConfig.getString("cor_statusbar"));
+                    setBarsColor(toolbarColor, statusbarColor);
                 } else {
                     Toast.makeText(activity, "Task was not successful", Toast.LENGTH_SHORT).show();
                 }

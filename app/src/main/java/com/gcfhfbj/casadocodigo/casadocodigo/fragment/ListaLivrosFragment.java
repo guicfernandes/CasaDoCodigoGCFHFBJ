@@ -1,36 +1,28 @@
 package com.gcfhfbj.casadocodigo.casadocodigo.fragment;
 
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.gcfhfbj.casadocodigo.casadocodigo.CasaDoCodigoApplication;
 import com.gcfhfbj.casadocodigo.casadocodigo.ColorUpdater;
 import com.gcfhfbj.casadocodigo.casadocodigo.EndlessListListener;
-import com.gcfhfbj.casadocodigo.casadocodigo.model.Autor;
-import com.gcfhfbj.casadocodigo.casadocodigo.model.Livro;
 import com.gcfhfbj.casadocodigo.casadocodigo.R;
 import com.gcfhfbj.casadocodigo.casadocodigo.adapter.LivroAdapter;
+import com.gcfhfbj.casadocodigo.casadocodigo.model.Livro;
 import com.gcfhfbj.casadocodigo.casadocodigo.server.WebClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -85,12 +77,12 @@ public class ListaLivrosFragment extends Fragment {
                     boolean listaSimples = config.getBoolean("lista_simples");
                     //setBarsColor(config.getString("cor_toolbar"), config.getString("cor_statusbar"));
                     //new LivroAdapter(livros, listaSimples);
-                    configuraLista(listaSimples);
+                    //configuraLista(listaSimples);
+                    recyclerView.setAdapter(new LivroAdapter(livros, listaSimples));
+                    recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
                 }
             }
         });
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
 
         return view;
         //return super.onCreateView(inflater, container, savedInstanceState);

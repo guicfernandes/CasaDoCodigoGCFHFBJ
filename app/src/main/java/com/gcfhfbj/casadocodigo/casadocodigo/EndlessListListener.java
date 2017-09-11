@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
  */
 
 public abstract class EndlessListListener extends RecyclerView.OnScrollListener {
+    private final int MAX_VISIBLE_ITENS = 5;
+
     private int quantidadeTotalItens;
     private int primeitoItemVisivel;
     private int quantidadeItensVisiveis;
@@ -20,7 +22,7 @@ public abstract class EndlessListListener extends RecyclerView.OnScrollListener 
     public void onScrolled(RecyclerView recyclerView, int qtdScrollHorizontal, int qtdScrollVertical) {
         super.onScrolled(recyclerView, qtdScrollHorizontal, qtdScrollVertical);
 
-        int indiceLimiteParaCarregar = quantidadeTotalItens - quantidadeItensVisiveis - 5;
+        int indiceLimiteParaCarregar = quantidadeTotalItens - quantidadeItensVisiveis - MAX_VISIBLE_ITENS;
 
         LinearLayoutManager layoutManager = (LinearLayoutManager)recyclerView.getLayoutManager();
 

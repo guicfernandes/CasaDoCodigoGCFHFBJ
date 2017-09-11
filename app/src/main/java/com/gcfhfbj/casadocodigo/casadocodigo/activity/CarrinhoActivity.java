@@ -65,7 +65,9 @@ public class CarrinhoActivity extends AppCompatActivity implements FragmentManag
         for (Item item : carrinho.getItens()) {
             total += item.getValor();
         }
-        valorTotal.setText("R$ " + total);
+        String textoValorTotal = String.format("R$ %.2f", total);
+        //valorTotal.setText("R$ " + valorTotal);
+        valorTotal.setText(textoValorTotal);
     }
 
     @Override

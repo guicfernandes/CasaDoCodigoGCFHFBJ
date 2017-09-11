@@ -1,21 +1,20 @@
 package com.gcfhfbj.casadocodigo.casadocodigo.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.gcfhfbj.casadocodigo.casadocodigo.CasaDoCodigoApplication;
 import com.gcfhfbj.casadocodigo.casadocodigo.ColorUpdater;
-import com.gcfhfbj.casadocodigo.casadocodigo.event.LivroEvent;
 import com.gcfhfbj.casadocodigo.casadocodigo.R;
 import com.gcfhfbj.casadocodigo.casadocodigo.delegate.LivrosDelegate;
+import com.gcfhfbj.casadocodigo.casadocodigo.event.LivroEvent;
 import com.gcfhfbj.casadocodigo.casadocodigo.fragment.DetalheLivroFragment;
 import com.gcfhfbj.casadocodigo.casadocodigo.fragment.ListaLivrosFragment;
 import com.gcfhfbj.casadocodigo.casadocodigo.model.Livro;
@@ -26,7 +25,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.List;
+import javax.inject.Inject;
 
 import butterknife.BindView;
 
@@ -37,13 +36,23 @@ public class MainActivity extends AppCompatActivity implements LivrosDelegate, F
     @BindView(R.id.frame_principal)
     View framePrincipal;
 
+    //@Inject
+    //FirebaseAuth mAuth;
     private FirebaseAuth mAuth;
-    private FirebaseRemoteConfig remoteConfig;
+
+    @Inject
+    FirebaseRemoteConfig remoteConfig;
+    //private FirebaseRemoteConfig remoteConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /* tentativa */
+        CasaDoCodigoApplication app = (CasaDoCodigoApplication) this.getApplication();
+        app.getComponent().inject(this);
+
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         listaLivrosFragment = new ListaLivrosFragment();
@@ -51,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements LivrosDelegate, F
         transaction.commit();
 
         new WebClient().getLivros(0, 10);
-
         EventBus.getDefault().register(this);
 
         //Habilitar botão voltar no topo
@@ -60,16 +68,15 @@ public class MainActivity extends AppCompatActivity implements LivrosDelegate, F
 
         mAuth = FirebaseAuth.getInstance();
 
-        CasaDoCodigoApplication app = (CasaDoCodigoApplication) this.getApplication();
-        app.getComponent().inject(this);
-
         new ColorUpdater(remoteConfig, this);
+
     }
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
+        //super.onDestroy();
         EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 
     private void mostrarVoltar() {

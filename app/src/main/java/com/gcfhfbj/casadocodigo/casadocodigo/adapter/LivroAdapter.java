@@ -26,7 +26,7 @@ public class LivroAdapter extends RecyclerView.Adapter {
     private List<Livro> livros;
     private boolean listaSimples;
 
-    public LivroAdapter(List<Livro> livros, boolean listaSimples) {
+    public  LivroAdapter(List<Livro> livros, boolean listaSimples) {
         this.livros = livros;
         this.listaSimples = listaSimples;
     }

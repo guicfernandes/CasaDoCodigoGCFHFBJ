@@ -6,10 +6,11 @@
     </entry>
     <entry>
         <key>cor_toolbar</key>
-        <value>#ff0000</value>
+        <value>#303f9f</value>
     </entry>
+
     <entry>
         <key>cor_statusbar</key>
-        <value>#ff0000</value>
+        <value>#303f9f</value>
     </entry>
 </defaultsMap>
