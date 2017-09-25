@@ -2,7 +2,6 @@ package com.gcfhfbj.casadocodigo.casadocodigo.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,7 +22,7 @@ import butterknife.ButterKnife;
  * Created by android7281 on 06/09/17.
  */
 
-public class CarrinhoActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener {
+public class CarrinhoActivity extends AppCompatActivity{
 
     @BindView(R.id.lista_itens_carrinho)
     RecyclerView listaItens;
@@ -47,14 +46,14 @@ public class CarrinhoActivity extends AppCompatActivity implements FragmentManag
 
         ButterKnife.bind(this);
 
-        //Habilitar botão voltar no topo
-        getSupportFragmentManager().addOnBackStackChangedListener(this);
-        mostrarVoltar();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
-    private void mostrarVoltar() {
-        boolean podeVoltar = getSupportFragmentManager().getBackStackEntryCount()>0;
-        getSupportActionBar().setDisplayHomeAsUpEnabled(podeVoltar);
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     public void carregaLista() {
@@ -76,15 +75,4 @@ public class CarrinhoActivity extends AppCompatActivity implements FragmentManag
         carregaLista();
     }
 
-    @Override
-    public void onBackStackChanged() {
-        mostrarVoltar();
-    }
-
-    //botao voltar
-    @Override
-    public boolean onSupportNavigateUp() {
-        getSupportFragmentManager().popBackStack();
-        return true;
-    }
 }

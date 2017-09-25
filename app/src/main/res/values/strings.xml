@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CasaDoCodigo</string>
+    <string name="error_access_denied">Acesso não autorizado, verifique suas informações</string>
+    <string name="error_form_incomplete">Por favor complete todos os campos</string>
 </resources>

@@ -5,11 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.gcfhfbj.casadocodigo.casadocodigo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -121,12 +119,13 @@ public class LoginActivity extends AppCompatActivity {
 
                             if (!task.isSuccessful()) {
                                 Log.w(TAG, "signInWithEmail", task.getException());
-                                Snackbar.make(LoginActivity.this.email, "Acesso não autorizado, verifique suas informações", Snackbar.LENGTH_SHORT).show();
+                                //Snackbar.make(LoginActivity.this.email, "Acesso não autorizado, verifique suas informações", Snackbar.LENGTH_SHORT).show();
+                                Snackbar.make(LoginActivity.this.email, R.string.error_access_denied, Snackbar.LENGTH_SHORT).show();
                             }
                         }
                     });
         } else {
-            Snackbar.make(this.senha, "Por favor complete todos os campos", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(this.senha, R.string.error_form_incomplete, Snackbar.LENGTH_SHORT).show();
 
         }
     }
